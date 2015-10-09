@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Demo - ENSMI </title>
+
+	<!-- CSS -->
+	<link rel="stylesheet" href="libs/bootstrap/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" href="libs/bootstrap/dist/css/bootstrap-theme.min.css">
+	<link rel="stylesheet" href="libs/angular-bootstrap/ui-bootstrap-csp.css">
+	<link rel="stylesheet" href="css/style.css"> <!-- custom styles -->
+
+	<!-- JS -->
+	<script src="libs/angular/angular.min.js"></script>
+	<script src="libs/angular-route/angular-route.min.js"></script>
+	<script src="libs/jquery/dist/jquery.min.js"></script>
+	<script src="libs/bootstrap/dist/js/bootstrap.min.js"></script>
+	<script src="libs/angular-bootstrap/ui-bootstrap.min.js"></script>
+
+	<!-- ANGULAR CUSTOM -->
+	<script src="js/controllers/MainCtrl.js"></script>
+	<script src="js/controllers/NerdCtrl.js"></script>
+	<script src="js/services/NerdService.js"></script>
+	<script src="js/controllers/GeekCtrl.js"></script>
+	<script src="js/controllers/IndicadoresCtrl.js"></script>
+	<script src="js/services/GeekService.js"></script>
+	<script src="js/appRoutes.js"></script>
+	<script src="js/app.js"></script>
+	<script src="js/live.js"></script>
+
+	<script src="libs/angular/angular.min.js"></script>
+	<script src="libs/angular-grid/dist/angular-grid.js?ignore=notused7"></script>
+	<link rel="stylesheet" type="text/css" href="libs/angular-grid/dist/angular-grid.css">
+	<link rel="stylesheet" type="text/css" href="libs/angular-grid/dist/theme-fresh.css">
+	<!-- ************************************************************** -->
+<style>
+    /* Some custom styles to beautify this example */
+    .demo-content{
+        padding: 0px;
+        font-size: 12px;
+        min-height: 300px;
+        background: #dbdfe5;
+        margin-bottom: 2px;
+        max-width: auto;
+    }
+    .demo-content.bg-alt{
+        background: #abb1b8;
+    }
+    /* Some custom media query to make 
+       this example even better */
+    @media screen and (max-width: 1024px){
+        .flexible{
+            min-height: 450px;
+        }
+    }
+</style>
+
+</head>
+<body ng-app="example2" ng-controller="exampleCtrl2">
+
+<div class="container">
+	
+	<!-- HEADER -->
+	<nav class="navbar navbar-inverse">
+		<div class="navbar-header">
+			<a class="navbar-brand" href="/demo.html">ENSMI</a>
+		</div>
+		<ul class="nav navbar-nav">
+			<!--<li><a href="/nerds">Nerds</a></li>
+			<li><a href="/geeks">Geeks</a></li>-->
+			<li><a href="/demo.html">Indicadores</a></li>
+		</ul>
+	  <form class="navbar-form navbar-left" role="search">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Algo específico ...">
+        </div>
+        <button type="submit" class="btn btn-default">Buscar</button>
+      </form>
+	</nav>
+
+
+
+    <!-- Open the output in a new blank tab (Click the arrow next to "Show Output" button) and resize the browser window to understand how the Bootstrap responsive grid system works. -->
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-3 col-md-2">
+                <div class="demo-content">
+<div class="bs-example">
+    <div class="panel-group" id="accordion">
+    	<!-- -->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">ENSMI 1987</a>
+                </h4>
+            </div>
+            <div id="collapseOne" class="panel-collapse collapse in">
+                <div class="panel-body">
+                    <p>
+					<div id="barra">
+						<ul class="nav nav-pills nav-stacked">
+						   <li class="active"><a >Capíitulo 6</a></li>
+						   <li ng-repeat='obj1987 in survey1987' ng-click='viewTable(obj1987.code)' >
+						   		<a href="#">{{obj1987.label}}</a>
+						   </li>
+						</ul>
+					</div>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <!-- -->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">ENSMI 1998</a>
+                </h4>
+            </div>
+            <div id="collapseTwo" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <p>
+					<div id="barra">
+						<ul class="nav nav-pills nav-stacked">
+						   <li class="active"><a >Capíitulo 2</a></li>
+						   <li ng-repeat='obj1998 in survey1998' ng-click='viewTable(obj1998.code)' >
+						   		<a href="#">{{obj1998.label}}</a>
+						   </li>
+						</ul>
+					</div>
+					</p>
+                </div>
+            </div>
+        </div>
+        <!-- -->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">ENSMI 2008</a>
+                </h4>
+            </div>
+            <div id="collapseThree" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <p>
+					<div id="barra">
+						<ul class="nav nav-pills nav-stacked">
+						   <li class="active"><a>Capíitulo 9 - Mujeres</a></li>
+						   <li ng-repeat='obj2008 in survey2008' ng-click='viewTable(obj2008.code)' >
+						   		<a href="#">{{obj2008.label}}</a>
+						   </li>
+						</ul>
+					</div>
+					</p>
+                </div>
+            </div>
+        </div>
+        <!-- -->
+    </div>
+</div>
+                </div>
+            </div>
+            <div class="col-sm-9 col-md-8">
+                <div >
+		<div>
+			<!--<form>
+				<label class="item item-input" for='cod' > Código de Tabla: </label>
+				<input id='cod' type'text' ng-model='cod' value='{{ tablecode }}'/>
+				<input type='button' value ='Generar Tabla' ng-click='generarTabla()' />
+			</form>
+					<p>valor buscado: {{ cod }}</p>-->
+				<!--<p> {{ columns | json }}</p>
+				<p> {{ rows | json }}</p>
+				<p> {{ stuffs | json}}</p>-->
+		
+			<div ng-repeat="stuff in stuffs">
+					<ul class="list-group">
+					<li class="list-group-item"><h2>{{stuff.tableTitle}}</h2></li>
+					<li class="list-group-item">{{stuff.chapterName}}</li>
+					<li class="list-group-item">{{stuff.surveyName}}</li>
+					<li class="list-group-item">{{stuff.descripcion}}</li>
+					<li class="list-group-item">
+						<div ag-grid="stuff.gridOptions" class="ag-fresh" style="height: 100%;">
+							<button class="btn btn-default btn-xs" ng-click="resize()"><span class="glyphicon glyphicon-check"></span> adaptar</button>
+						</div>
+					</li>
+				<ul>
+					<li ng-repeat="r in referencia"> {{r}}</li>
+				</ul>
+					</ul>
+				</div>
+			</div>
+		</div>
+                </div>
+            </div>
+        </div>
+    </div>
+<script type="text/javascript">
+
+	var module = angular.module("example2", ["angularGrid"]);
+
+	module.controller("exampleCtrl2", function($scope, $http) {
+		$scope.obj1987 = {};
+		$scope.survey1987 = [
+							{code:"E1987C6P1",label:'Tabla 6.1'},
+							{code:"E1987C6P2",label:'Tabla 6.2'},
+							{code:"E1987C6P3",label:'Tabla 6.3'}
+						];
+
+		$scope.obj1998 = {};
+		$scope.survey1998 = [
+							{code:"E1998C2P1",label:'Tabla 2.1'},
+							{code:"E1998C2P2",label:'Tabla 2.2'}
+						];
+
+		$scope.obj2008 = {};
+		$scope.survey2008 = [
+							{code:"E2008C9P1B",label:'Tabla 9.1B'}
+						];
+
+		$scope.cod = '';
+		$scope.columns = [];
+		$scope.rows = [];
+		$scope.stuffs = [];
+		$scope.tablecode = '';
+		$scope.surveyName = '';
+		$scope.tableTitle = '';
+		$scope.chapterName = '';
+		$scope.descripcion = '';
+		$scope.referencia = [];
+
+			/*console.log("http://192.168.2.199:8080/cuadro-angular-grid/"+codigo);
+			$http.get("http://192.168.2.199:8080/cuadro-angular-grid/"+codigo)*/
+
+		$scope.refresh = function(codigo){
+			console.log("http://localhost:8080/cuadro-angular-grid/"+codigo);
+			$http.get("http://localhost:8080/cuadro-angular-grid/"+codigo)
+			    .then(function(res){
+		      		$scope.columns = res.data.columnDefs;    
+	      			$scope.rows = res.data.rowData;
+		        	$scope.tablecode = res.data.tablecode;
+		        	$scope.tabletitle = res.data.tabletitle;
+		        	$scope.surveyName = res.data.surveyName;
+		        	$scope.tableTitle = res.data.tableTitle;
+		        	$scope.chapterName = res.data.chapterName;
+		        	$scope.descripcion= res.data.descripcion;
+		        	$scope.referencia = res.data.referencia;
+			    });
+		}
+
+	    $scope.generarTabla = function(){
+	    	$scope.refresh($scope.cod);
+
+			$scope.stuffs = [];
+
+			$scope.gridOptions = {
+				columnDefs: $scope.columns,
+				rowData: $scope.rows,
+				groupHeaders: true,
+				dontUseScrolls: false,
+        		enableColResize: true,
+        		rowSelection: 'multiple',
+        		pinnedColumnCount: 1
+			};
+
+			$scope.stuffs.push({
+				gridOptions : $scope.gridOptions,
+				tablecode : $scope.tablecode,
+				surveyName : $scope.surveyName,
+				tableTitle : $scope.tableTitle,
+				chapterName : $scope.chapterName,
+				descripcion : $scope.descripcion,
+				referencia : $scope.referencia
+			});
+
+			//$scope.resize();
+
+	    };
+
+		$scope.resize = function() {
+       		$scope.gridOptions.api.sizeColumnsToFit();
+    	};
+
+    	$scope.viewTable = function (code){
+    		$scope.cod = code;
+    		$scope.generarTabla();
+    	};
+
+	});
+</script>
+</div>
+</body>
+</html>

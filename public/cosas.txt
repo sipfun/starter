@@ -1,0 +1,44 @@
+//http://localhost:8080/cuadro-angular-grid/ENSMI20142015
+
+
+/*
+var express = require('express');
+var app = express();
+
+app.get('/user/:id', function(req, res){
+  //res.send('user: ' + req.params.id);
+
+  var par = String(req.params.id);
+  var parametros = par.split('-');
+  console.log('recibimos un '+par);
+
+  var _ID, surveyName, chapterName = '';
+
+  if ( parametros.length === 3 ){
+
+  		_ID = parametros[0];
+  		surveyName = parametros[1];
+  		chapterName = parametros[2];
+
+  } else {
+  		console.log('no hubo arreglo valido.');
+  }
+
+  res.writeHead(200, {"Content-Type": "application/json"});
+  var ajson = JSON.stringify({ 
+    idtable: _ID, 
+    survey: surveyName, 
+    chapter: chapterName
+  });
+
+  res.end(ajson);
+
+});
+
+app.listen(3000);
+*/
+
+/*
+
+*/
+

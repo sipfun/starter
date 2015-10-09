@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Angular Grid</title>
+	<script src="libs/angular/angular.min.js"></script>
+	<script src="libs/angular-grid/dist/angular-grid.js?ignore=notused7"></script>
+	<link rel="stylesheet" type="text/css" href="libs/angular-grid/dist/angular-grid.css">
+	<link rel="stylesheet" type="text/css" href="libs/angular-grid/dist/theme-fresh.css">
+</head>
+<body ng-app="example" ng-controller="exampleCtrl">
+	<p><label class="item item-input"><span class="input-label">Tabla código:</span>
+			<input type="text" value="{{tablecode}}" columns="200" >
+		</label></p>
+	<p><label class="item item-input"><span class="input-label">Encuesta nombre:</span>
+			<input type="text" value="{{surveyName}}" >
+		</label></p>
+	<p><label class="item item-input"><span class="input-label">Tabla título:</span>
+			<input type="text" value="{{tableTitle}}" >
+		</label></p>
+	<p><label class="item item-input"><span class="input-label">Capítulo nombre:</span>
+			<input type="time" value="{{chapterName}}" >
+		</label></p>
+
+
+    <div ag-grid="gridOptions" class="ag-fresh" style="height: 100%;"></div>
+
+<script type="text/javascript">
+
+	var module = angular.module("example", ["angularGrid"]);
+
+	module.controller("exampleCtrl", function($scope, $http) {
+
+		$scope.datos = {};
+		$scope.columnas = [];
+		var filas = [];
+
+
+	    var columnDefs = [
+	        {headerName: "Make", field: "make"},
+	        {headerName: "Model", field: "model"},
+	        {headerName: "Price", field: "price"}
+	    ];
+
+	    /*var rowData = [
+	        {make: "Toyota", model: "Celica", price: 35000},
+	        {make: "Ford", model: "Mondeo", price: 32000},
+	        {make: "Porsche", model: "Boxter", price: 72000}
+	    ];*/
+	    
+		var get_columns = function(){
+            return $http.get('http://localhost:8080/cuadro-angular-grid/ENSMI2002').success(function(data){
+	                
+	                angular.copy(data.columnDefs, $scope.columnas)
+	                /*console.log('fuck... haciendo un get para las columnas ');
+	                 console.log(data.columnDefs);*/
+	                 console.log($scope.columnas);
+
+
+	                //return $scope.columnas;
+            });
+        };
+/*   $on(''){
+	
+		
+	 }
+*/
+        
+        get_columns();
+        console.log(';;;;;;;;;;;;');
+        console.log($scope.columnas);
+
+	    $scope.gridOptions = {
+	        columnDefs: columnDefs,
+	        rowData: null
+
+	        ,dontUseScrolls: true // because so little data, no need to use scroll bars
+	    };
+
+	    $http.get("http://localhost:8080/cuadro-angular-grid/ENSMI2002")
+	        .then(function(res){
+
+	        	$scope.tablecode = res.data.tablecode;
+	        	$scope.surveyName = res.data.surveyName;
+	        	$scope.tableTitle = res.data.tableTitle;
+	        	$scope.chapterName = res.data.chapterName;
+	        	$scope.gridOptions.rowData = res.data.rowData;
+
+	        	// este es un arreglo que trae las filas para mi tabla.
+	            //$scope.gridOptions.rowData = res.data.rowData;
+
+	            /*console.log('- - - - -');
+	            console.log('- - - - -');
+	            console.log('- - - - -');
+	            console.log('- - - - -');
+	            console.log('- - - - -');
+	        	console.log($scope.gridOptions.rowData);
+				*/
+
+	        	/*$scope.gridOptions = {
+			        columnDefs: res.data.columnDefs,
+			        rowData: res.data.rowData,
+			        dontUseScrolls: true // because so little data, no need to use scroll bars
+			    };*/
+
+	            $scope.gridOptions.api.onNewRows();
+
+		        console.log('-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*');
+		        console.log($scope.gridOptions.columnDefs);
+		        console.log($scope.gridOptions.rowData);
+		        console.log('-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*');
+		        console.log($scope.columnas);
+	        });
+
+
+
+
+
+	});
+</script>
+</body>
+</html>

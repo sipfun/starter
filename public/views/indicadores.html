@@ -1,0 +1,59 @@
+<style type="text/css">
+.animate-show {
+  line-height: 20px;
+  opacity: 1;
+  padding: 10px;
+  border: 1px solid black;
+  background: white;
+}
+
+.animate-show.ng-hide-add, .animate-show.ng-hide-remove {
+  transition: all linear 0.5s;
+}
+
+.animate-show.ng-hide {
+  line-height: 0;
+  opacity: 0;
+  padding: 0 10px;
+}
+
+.check-element {
+  padding: 10px;
+  border: 1px solid black;
+  background: white;
+}
+</style>
+
+<script type="text/javascript">
+          	
+</script>
+
+<div class="jumbotron text-center">
+	<h1>Geek City</h1>
+
+	<p>{{ tagline }}</p>
+    
+    
+    <button type="submit" class="btn btn-success" ng-click="agregar()">Agregar</button>
+    
+    
+    
+    <div class="todoList bg-info">
+	    <h4>Tareas registradas</h4>
+	    <div class="item" ng-repeat="tarea in tareas">
+
+	        <p>
+	            <a href="#" style="align:left"> Cuadro: {{tarea.numero}}</a>
+              <div>
+                            <label>Ver descripcion:<input type="checkbox" ng-model="checked" aria-label="Toggle ngHide"><br/>
+                              <textarea class="check-element animate-show"  ng-show="checked">{{tarea.name}}</textarea>
+                            </label>
+              </div>
+	        </p>
+	    </div>
+
+      <div ag-grid="gridOptions" class="ag-fresh" style="height: 100%;"></div>
+
+	  </div>
+    
+</div>

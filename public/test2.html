@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Angular Grid 2 </title>
+	<script src="libs/angular/angular.min.js"></script>
+	<script src="libs/angular-grid/dist/angular-grid.js?ignore=notused7"></script>
+	<link rel="stylesheet" type="text/css" href="libs/angular-grid/dist/angular-grid.css">
+	<link rel="stylesheet" type="text/css" href="libs/angular-grid/dist/theme-fresh.css">
+</head>
+<body ng-app="example2" ng-controller="exampleCtrl2">
+	<form>
+		<label class="item item-input" for='cod' > Código de Tabla: </label>
+		<input id='cod' type'text' ng-model='cod' value='{{ tablecode }}'/>
+		<input type='button' value ='Generar Tabla' ng-click='generarTabla()' />
+	</form>
+			<p>valor buscado: {{ cod }}</p>
+		<!--<p> {{ columns | json }}</p>
+		<p> {{ rows | json }}</p>
+		<p> {{ stuffs | json}}</p>-->
+
+	<div ng-repeat="stuff in stuffs">
+		<div ag-grid="stuff.gridOptions" class="ag-fresh" style="height: 100%;">
+			<p>{{stuff.tablecode}}</p>
+			<p>{{stuff.surveyName}}</p>
+			<p>{{stuff.tableTitle}}</p>
+			<p>{{stuff.chapterName}}</p>
+			<button ng-click="resize()">adaptar</button>
+		</div>
+	</div>
+
+<script type="text/javascript">
+
+	var module = angular.module("example2", ["angularGrid"]);
+
+	module.controller("exampleCtrl2", function($scope, $http) {
+
+		$scope.cod = 'ENSMI2002';
+		$scope.columns = [];
+		$scope.rows = [];
+		$scope.stuffs = [];
+		$scope.tablecode = '';
+		$scope.surveyName = '';
+		$scope.tableTitle = '';
+		$scope.chapterName = '';
+
+			/*console.log("http://192.168.2.199:8080/cuadro-angular-grid/"+codigo);
+			$http.get("http://192.168.2.199:8080/cuadro-angular-grid/"+codigo)*/
+
+		$scope.refresh = function(codigo){
+			console.log("http://localhost:8080/cuadro-angular-grid/"+codigo);
+			$http.get("http://localhost:8080/cuadro-angular-grid/"+codigo)
+			    .then(function(res){
+		      		$scope.columns = res.data.columnDefs;    
+	      			$scope.rows = res.data.rowData;
+		        	$scope.tablecode = res.data.tablecode;
+		        	$scope.surveyName = res.data.surveyName;
+		        	$scope.tableTitle = res.data.tableTitle;
+		        	$scope.chapterName = res.data.chapterName;
+		        	$scope.grafica = res.data.grafica;
+			    });
+		}
+
+	    $scope.generarTabla = function(){
+	    	$scope.refresh($scope.cod);
+
+			$scope.stuffs = [];
+
+			$scope.gridOptions = {
+				columnDefs: $scope.columns,
+				rowData: $scope.rows,
+				groupHeaders: true,
+				dontUseScrolls: false,
+        		enableColResize: true,
+        		rowSelection: 'multiple',
+        		pinnedColumnCount: 1
+			};
+
+			$scope.stuffs.push({
+				gridOptions : $scope.gridOptions,
+				tablecode : $scope.tablecode,
+				surveyName : $scope.surveyName,
+				tableTitle : $scope.tableTitle,
+				chapterName : $scope.chapterName
+			});
+
+			//$scope.resize();
+
+	    };
+
+		$scope.resize = function() {
+       		$scope.gridOptions.api.sizeColumnsToFit();
+    	};
+
+	});
+</script>
+</body>
+</html>
